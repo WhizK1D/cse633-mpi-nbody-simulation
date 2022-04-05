@@ -1,0 +1,16 @@
+1. Initialization:
+    a. Define rank and number of processors
+    b. Initialize blank velocities array (global)
+    c. Define mass, position, velocity and force arrays for each processor
+    d. MPI Initialize
+2. Distrubte particles across processors and define master processor code
+3. Allocate memory for all attributes of particles
+4. Based on above allocated memory define a MPI custom data type for chunking of data for transmission
+5. Process initial state on master processor
+6. Broadcast particle data of each processor from master processor
+7. Start simulation timer and repeat for target no of simulation cycles:
+    a. Calculate net force on each particle due to all other particles
+    b. Update position and velocities based on calculated force of each particle
+    c. Receive updated position and velocities of all the particles on all processors (MPI_Allgather)
+8. Process the final state of system and dump into file and stop simulation timer
+9. Free all allocated memory and exit gracefully
